@@ -1,4 +1,4 @@
-package com.example.twoper.jwt.config.jwt;
+package com.twoper.twoper.global.jwt;
 
 public interface JwtProperties {
     // 서버만 알고 있는 시크릿 키

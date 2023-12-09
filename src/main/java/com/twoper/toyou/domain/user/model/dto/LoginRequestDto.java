@@ -1,4 +1,4 @@
-package com.example.twoper.jwt.model.dto;
+package com.twoper.toyou.domain.user.model.dto;
 
 import lombok.Data;
 

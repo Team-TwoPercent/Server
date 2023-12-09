@@ -1,4 +1,4 @@
-package com.example.twoper.jwt.config;
+package com.twoper.twoper.global.configuration;
 
 import org.springframework.web.filter.CorsFilter; // 이 부분 수정
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.example.twoper;
+package com.twoper.twoper;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

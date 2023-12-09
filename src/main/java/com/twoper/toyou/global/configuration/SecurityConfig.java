@@ -1,7 +1,7 @@
-package com.example.twoper.jwt.config;
-import com.example.twoper.jwt.config.jwt.JwtAuthenticationFilter;
-import com.example.twoper.jwt.config.jwt.JwtAuthorizationFilter;
-import com.example.twoper.jwt.repoditory.UserRepository;
+package com.twoper.twoper.global.configuration;
+import com.twoper.twoper.global.jwt.JwtAuthenticationFilter;
+import com.twoper.twoper.global.jwt.JwtAuthorizationFilter;
+import com.twoper.twoper.domain.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,10 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.firewall.DefaultHttpFirewall;
-import org.springframework.security.web.firewall.HttpFirewall;
 
 @Configuration
 @EnableWebSecurity // 시큐리티 활성화 -> 기본 스프링 필터체인에 등록

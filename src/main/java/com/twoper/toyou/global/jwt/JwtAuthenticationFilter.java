@@ -92,12 +92,12 @@
 //
 //}
 
-package com.example.twoper.jwt.config.jwt;
+package com.twoper.twoper.global.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.example.twoper.jwt.config.auth.PrincipalDetails;
-import com.example.twoper.jwt.model.dto.LoginRequestDto;
+import com.twoper.twoper.global.jwt.auth.PrincipalDetails;
+import com.twoper.twoper.domain.user.model.dto.LoginRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

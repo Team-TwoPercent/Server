@@ -1,6 +1,6 @@
-package com.example.twoper.jwt.config.auth;
+package com.twoper.twoper.global.jwt.auth;
 
-import com.example.twoper.jwt.model.User;
+import com.twoper.twoper.domain.user.model.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

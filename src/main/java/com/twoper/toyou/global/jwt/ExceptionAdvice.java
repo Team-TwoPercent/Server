@@ -1,6 +1,6 @@
-package com.example.twoper.jwt;
+package com.twoper.twoper.global.jwt;
 
-import com.example.twoper.jwt.model.Response;
+import com.twoper.twoper.domain.user.model.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
