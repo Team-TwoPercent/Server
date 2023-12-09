@@ -1,6 +1,6 @@
-package com.example.twoper.jwt.repoditory;
+package com.twoper.toyou.domain.user.repository;
 
-import com.example.twoper.jwt.model.User;
+import com.twoper.toyou.domain.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Integer> {

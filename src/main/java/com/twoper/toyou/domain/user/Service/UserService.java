@@ -37,11 +37,11 @@
 //    }
 //}
 
-package com.example.twoper.jwt.Service;
+package com.twoper.toyou.domain.user.Service;
 
-import com.example.twoper.jwt.model.User;
-import com.example.twoper.jwt.model.dto.RegisterDto;
-import com.example.twoper.jwt.repoditory.UserRepository;
+import com.twoper.toyou.domain.user.model.User;
+import com.twoper.toyou.domain.user.model.dto.RegisterDto;
+import com.twoper.toyou.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

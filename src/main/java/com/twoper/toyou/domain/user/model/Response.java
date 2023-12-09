@@ -1,9 +1,8 @@
-package com.example.twoper.jwt.model;
+package com.twoper.toyou.domain.user.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import springfox.documentation.spring.web.json.Json;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
