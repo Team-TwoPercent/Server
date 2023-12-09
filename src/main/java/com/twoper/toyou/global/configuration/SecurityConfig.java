@@ -2,6 +2,7 @@ package com.twoper.toyou.global.configuration;
 import com.twoper.toyou.domain.user.repository.UserRepository;
 import com.twoper.toyou.global.jwt.JwtAuthenticationFilter;
 import com.twoper.toyou.global.jwt.JwtAuthorizationFilter;
+import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private CorsConfig corsConfig;
-
     @Bean
     public BCryptPasswordEncoder encoder() {
         // DB 패스워드 암호화
@@ -42,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository))
                 .authorizeRequests()
                 .antMatchers("/", "/**").permitAll() // 이거 추가 함
+                .antMatchers("/join").permitAll()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/user/**")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/manager/**")
