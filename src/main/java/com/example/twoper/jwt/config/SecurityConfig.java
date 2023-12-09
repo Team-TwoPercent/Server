@@ -53,6 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/health")
                 .permitAll()
+                .antMatchers("/login")
+                .permitAll()
                 .anyRequest().permitAll();
     }
 }
