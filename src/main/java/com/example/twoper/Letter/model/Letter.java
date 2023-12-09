@@ -1,6 +1,5 @@
 package com.example.twoper.Letter.model;
-
-import com.example.twoper.jwt.model.User;
+import com.twoper.toyou.domain.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.twoper.twoper.global.configuration;
+package com.twoper.toyou.global.configuration;
 
 import org.springframework.web.filter.CorsFilter; // 이 부분 수정
 import org.springframework.context.annotation.Bean;

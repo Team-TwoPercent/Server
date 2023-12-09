@@ -1,10 +1,10 @@
-package com.twoper.twoper.global.jwt;
+package com.twoper.toyou.global.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.twoper.twoper.global.jwt.auth.PrincipalDetails;
-import com.twoper.twoper.domain.user.model.User;
-import com.twoper.twoper.domain.user.repository.UserRepository;
+import com.twoper.toyou.domain.user.model.User;
+import com.twoper.toyou.domain.user.repository.UserRepository;
+import com.twoper.toyou.global.jwt.auth.PrincipalDetails;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

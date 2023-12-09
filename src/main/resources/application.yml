@@ -21,9 +21,9 @@ spring:
     #username: cos
     #password: cos1234
     #driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://ep-round-sky-86834295.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+    username: yena5511
+    password: 9zokaVLng1sD
     driver-class-name: org.postgresql.Driver
 
   jpa:

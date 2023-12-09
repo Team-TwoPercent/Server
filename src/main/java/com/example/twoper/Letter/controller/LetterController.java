@@ -3,10 +3,11 @@ package com.example.twoper.Letter.controller;
 import com.example.twoper.Letter.model.Letter;
 import com.example.twoper.Letter.model.dto.LetterDto;
 import com.example.twoper.Letter.service.LetterService;
-import com.example.twoper.jwt.config.auth.PrincipalDetails;
-import com.example.twoper.jwt.model.Response;
-import com.example.twoper.jwt.model.User;
-import com.example.twoper.jwt.repoditory.UserRepository;
+
+import com.twoper.toyou.domain.user.model.Response;
+import com.twoper.toyou.domain.user.model.User;
+import com.twoper.toyou.domain.user.repository.UserRepository;
+import com.twoper.toyou.global.jwt.auth.PrincipalDetails;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,7 @@
-package com.twoper.twoper.global.jwt.auth;
+package com.twoper.toyou.global.jwt.auth;
 
-import com.twoper.twoper.domain.user.model.User;
-import com.twoper.twoper.domain.user.repository.UserRepository;
+import com.twoper.toyou.domain.user.model.User;
+import com.twoper.toyou.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

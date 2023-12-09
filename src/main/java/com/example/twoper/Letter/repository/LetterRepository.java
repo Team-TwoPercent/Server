@@ -1,7 +1,7 @@
 package com.example.twoper.Letter.repository;
 
 import com.example.twoper.Letter.model.Letter;
-import com.example.twoper.jwt.model.User;
+import com.twoper.toyou.domain.user.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

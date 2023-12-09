@@ -1,7 +1,7 @@
-package com.twoper.twoper.global.configuration;
-import com.twoper.twoper.global.jwt.JwtAuthenticationFilter;
-import com.twoper.twoper.global.jwt.JwtAuthorizationFilter;
-import com.twoper.twoper.domain.user.repository.UserRepository;
+package com.twoper.toyou.global.configuration;
+import com.twoper.toyou.domain.user.repository.UserRepository;
+import com.twoper.toyou.global.jwt.JwtAuthenticationFilter;
+import com.twoper.toyou.global.jwt.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

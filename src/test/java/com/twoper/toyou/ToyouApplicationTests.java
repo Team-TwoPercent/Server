@@ -1,10 +1,10 @@
-package com.twoper.twoper;
+package com.twoper.toyou;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TwoperApplicationTests {
+class ToyouApplicationTests {
 
     @Test
     void contextLoads() {
