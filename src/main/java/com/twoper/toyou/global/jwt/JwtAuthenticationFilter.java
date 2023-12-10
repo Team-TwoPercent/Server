@@ -144,6 +144,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
             System.out.println("Authentication : " + principalDetailis.getUser().getUsername());
+            System.out.println("Username: " + loginRequestDto.getUsername());
+            System.out.println("Password: " + loginRequestDto.getPassword());
+
             return authentication;
 
         } catch (Exception e) {
@@ -193,8 +196,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
 
         // /login 마치고 나면, 토큰을 body로 보내줌
-        response.getWriter().write(String.valueOf(jwtToken));
+        response.getWriter().write(jwtToken);
     }
+
 
 
 }
