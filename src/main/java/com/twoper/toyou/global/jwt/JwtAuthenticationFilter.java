@@ -152,23 +152,45 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         return null;
     }
 
+//    @Override
+//    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+//                                            Authentication authResult) throws IOException, ServletException {
+//
+//        System.out.println("successfulAuthentication 실행됨 : 인증이 완료되었다는 뜻임");
+//        PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
+//
+//        String jwtToken = JWT.create()
+//                .withSubject("cos 토큰")
+//                .withExpiresAt(new Date(System.currentTimeMillis()+(60000*10)))
+//                .withClaim("id", principalDetails.getUser().getId())
+//                .withClaim("username", principalDetails.getUser().getUsername())
+//                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
+//
+//        System.out.println(jwtToken);
+//
+//        response.addHeader("Authorization", "Bearer " + jwtToken);
+//
+//        // /login 마치고 나면, 토큰을 body로 보내줌
+//        response.getWriter().write(String.valueOf(jwtToken));
+//    }
+
+
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
 
-        System.out.println("successfulAuthentication 실행됨 : 인증이 완료되었다는 뜻임");
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
 
         String jwtToken = JWT.create()
-                .withSubject("cos 토큰")
-                .withExpiresAt(new Date(System.currentTimeMillis()+(60000*10)))
+                .withSubject(principalDetails.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
                 .withClaim("id", principalDetails.getUser().getId())
                 .withClaim("username", principalDetails.getUser().getUsername())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
         System.out.println(jwtToken);
 
-        response.addHeader("Authorization", "Bearer " + jwtToken);
+        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
 
         // /login 마치고 나면, 토큰을 body로 보내줌
         response.getWriter().write(String.valueOf(jwtToken));
