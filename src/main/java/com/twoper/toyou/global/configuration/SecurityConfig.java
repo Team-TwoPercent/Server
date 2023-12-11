@@ -2,10 +2,12 @@ package com.twoper.toyou.global.configuration;
 import com.twoper.toyou.domain.user.repository.UserRepository;
 import com.twoper.toyou.global.jwt.JwtAuthenticationFilter;
 import com.twoper.toyou.global.jwt.JwtAuthorizationFilter;
+import com.twoper.toyou.global.jwt.auth.PrincipalDetailsService;
 import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private CorsConfig corsConfig;
+
     @Bean
     public BCryptPasswordEncoder encoder() {
         // DB 패스워드 암호화
