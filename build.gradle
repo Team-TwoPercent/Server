@@ -27,7 +27,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     implementation 'org.springframework.security:spring-security-crypto'
-    runtimeOnly 'com.mysql:mysql-connector-j'
+//    runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly ("org.mariadb.jdbc:mariadb-java-client:3.1.2")
     implementation("org.postgresql:postgresql:42.6.0")
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
