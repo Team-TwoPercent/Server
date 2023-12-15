@@ -97,19 +97,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println("인증이나 권한이 필요힌 주소 요청이 됨");
-
-
-        String header = request.getHeader("Authorization");
-        System.out.println("jwtHeader : " + header);
-
+        String header = request.getHeader(JwtProperties.HEADER_STRING);
         if(header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
             chain.doFilter(request, response);
             return;
         }
-
-        String jwtToken = request.getHeader("Authorization").replace("Bearer ", "");
-
         System.out.println("header : "+header);
         String token = request.getHeader(JwtProperties.HEADER_STRING)
                 .replace(JwtProperties.TOKEN_PREFIX, "");
@@ -120,17 +112,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
                 .getClaim("username").asString();
 
         if(username != null) {
-            System.out.println("username 정상");
             User user = userRepository.findByUsername(username);
 
             // 인증은 토큰 검증시 끝. 인증을 하기 위해서가 아닌 스프링 시큐리티가 수행해주는 권한 처리를 위해
             // 아래와 같이 토큰을 만들어서 Authentication 객체를 강제로 만들고 그걸 세션에 저장!
-            User userEntity = userRepository.findByUsername(username);
-            System.out.println("userEntity" + userEntity.getUsername() );
-            PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
-
-            System.out.println("principalDetails: " + principalDetails.getUsername()+"하하하하하하");
-
+            PrincipalDetails principalDetails = new PrincipalDetails(user);
             Authentication authentication =
                     new UsernamePasswordAuthenticationToken(
                             principalDetails, //나중에 컨트롤러에서 DI해서 쓸 때 사용하기 편함.
@@ -145,4 +131,3 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
     }
 
 }
-
