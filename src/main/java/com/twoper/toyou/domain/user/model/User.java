@@ -16,21 +16,35 @@ import java.util.List;
 @Entity(name = "member")
 public class User {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private int id;
+//
+//   @Column(nullable = false, unique = true)
+//    private String username;
+//
+//    @JsonIgnore
+//   @Column(nullable = false)
+//    private String password;
+//
+//   @Column(nullable = false)
+//    private String name;
+//
+//
+//
+//    private String roles; // USER, ADMIN
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-   @Column(nullable = false, unique = true)
+    private long id;
     private String username;
-
-    @JsonIgnore
-   @Column(nullable = false)
     private String password;
+    private String roles; // USER, ADMIN
 
-   @Column(nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    private String roles; // USER, ADMIN
+
 
     public List<String> getRoleList() {
         if (this.roles.length() > 0) {
