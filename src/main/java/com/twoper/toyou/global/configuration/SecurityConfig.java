@@ -44,7 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository))
                 .authorizeRequests()
-                .antMatchers("/", "/**").permitAll() // 이거 추가 함
                 .antMatchers("/join").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/user/**")

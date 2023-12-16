@@ -18,7 +18,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class UserController {
+public class  UserController {
 
     private final UserService userService;
 
@@ -52,6 +52,13 @@ public class UserController {
         return new Response<>("true", "가입 성공", userService.register(registerDto));
     }
 
+    @PostMapping("/api/v1/join")
+    public String join(@RequestBody User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRoles("ROLE_USER");
+        userRepository.save(user);
+        return "회원가입완료";
+    }
 
 
     // 모든 사람이 접근 가능

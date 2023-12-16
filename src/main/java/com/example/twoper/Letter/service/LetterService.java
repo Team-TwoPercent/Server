@@ -84,8 +84,6 @@ public class LetterService {
     @Transactional(readOnly = true)
     public List<LetterDto> sentLetter(User user) {
         // 보낸 편지함 불러오기
-        // 한 명의 유저가 받은 모든 메시지
-        // 추후 JWT를 이용해서 재구현 예정
         List<Letter> letters = letterRepository.findAllBySender(user);
         List<LetterDto> letterDtos = new ArrayList<>();
 
