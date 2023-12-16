@@ -17,7 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity // 시큐리티 활성화 -> 기본 스프링 필터체인에 등록
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
-
     @Autowired
     private UserRepository userRepository;
 
@@ -46,14 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers("/join").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/user/**")
+                .antMatchers("/users/**")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
-                .antMatchers("/manager/**")
-                .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
-                .antMatchers("/admin/**")
-                .access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/health")
-                .permitAll()
+                .antMatchers("/comments/**")
+                .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+
                 .anyRequest().permitAll();
     }
 }

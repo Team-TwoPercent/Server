@@ -11,9 +11,9 @@ import java.util.Collection;
 @Data
 public class PrincipalDetails implements UserDetails {
 
-    private User user;
+private User user;
 
-    public PrincipalDetails(User user){
+    public PrincipalDetails(User user) {
         this.user = user;
     }
 
@@ -28,7 +28,12 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+
+        if (user != null) {
+            return user.getPassword();
+        } else {
+            return null; // 또는 다른 적절한 값
+        }
     }
 
     @Override

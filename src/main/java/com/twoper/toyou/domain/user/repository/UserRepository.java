@@ -4,6 +4,6 @@ import com.twoper.toyou.domain.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-     User findByUsername(String username);
-     User findByName(String name);
+     public User findByUsername(String username);
+     public User findByName(String name);
 }

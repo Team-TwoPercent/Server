@@ -40,15 +40,10 @@ public class  UserController {
         return new Response<>("true", "조회 성공", userService.findUser(id));
     }
 
-
-    @ApiOperation(value = "회원가입", notes = "회원가입 진행")
+    @ApiOperation(value = "회원가입", notes="회원가입 진행")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/join")
     public Response<?> register(@RequestBody RegisterDto registerDto) {
-        // 비밀번호 암호화
-        String encodedPassword = bCryptPasswordEncoder.encode(registerDto.getPassword());
-        registerDto.setPassword(encodedPassword);
-
         return new Response<>("true", "가입 성공", userService.register(registerDto));
     }
 
