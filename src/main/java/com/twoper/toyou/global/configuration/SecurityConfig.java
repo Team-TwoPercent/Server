@@ -35,8 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
 //                .addFilter(corsConfig.corsFilter())
-                .cors().configurationSource(corsConfig.corsConfigurationSource()) // 수정된 부분
-                .and()
+                .addFilterBefore(corsConfig.corsFilter(), CorsFilter.class) // CorsFilter를 먼저 적용/ 수정코드
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
