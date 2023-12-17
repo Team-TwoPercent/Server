@@ -5,6 +5,7 @@ import com.twoper.toyou.global.jwt.JwtAuthorizationFilter;
 import com.twoper.toyou.global.jwt.auth.PrincipalDetailsService;
 import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -33,7 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .addFilter(corsConfig.corsFilter())
+//                .addFilter(corsConfig.corsFilter())
+                .cors().configurationSource(corsConfig.corsConfigurationSource()) // 수정된 부분
+                .and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -52,4 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
                 .anyRequest().permitAll();
     }
+
 }
+
+
