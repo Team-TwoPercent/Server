@@ -19,7 +19,8 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
+        //config.addAllowedOrigin("*");
+        config.addAllowedOrigin("https://port-0-erver-7xwyjq992llj5rb1pc.sel4.cloudtype.app");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
