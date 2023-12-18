@@ -118,6 +118,8 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
+            .formLogin().disable()
+            .httpBasic().disable()
             .authorizeRequests()
             .antMatchers("/join", "/login", "/home").permitAll() // 토큰이 없는 상태에서 요청 허용
             .anyRequest().authenticated(); // 나머지 API는 인증 필요
