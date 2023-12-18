@@ -18,7 +18,8 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry corsRegistry) {
 
         corsRegistry.addMapping("/**")
-                .allowedOrigins("https://port-0-erver-7xwyjq992llj5rb1pc.sel4.cloudtype.app")
+//                .allowedOrigins("https://port-0-erver-7xwyjq992llj5rb1pc.sel4.cloudtype.app")
+                .allowedOrigins("http://localhost:3000")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowCredentials(true)
