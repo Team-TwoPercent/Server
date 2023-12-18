@@ -101,10 +101,8 @@ package com.twoper.toyou.global.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.twoper.toyou.domain.user.model.dto.LoginRequestDto;
-import com.twoper.toyou.global.jwt.JwtProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twoper.toyou.global.jwt.auth.PrincipalDetails;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -118,10 +116,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-//401오류
-@RequiredArgsConstructor
+
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager){
+        this.authenticationManager = authenticationManager;
+        //setFilterProcessesUrl("/login");
+        super.setAuthenticationManager(authenticationManager);
+    }
     private final AuthenticationManager authenticationManager;
 
     // Authentication 객체 만들어서 리턴 => 의존 : AuthenticationManager
