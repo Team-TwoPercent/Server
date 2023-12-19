@@ -10,6 +10,7 @@ import com.twoper.toyou.domain.user.repository.UserRepository;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class  UserController {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
 
     @ApiOperation(value = "전체 회원 보기", notes = "전체 회원을 조회한다.")
@@ -46,7 +48,6 @@ public class  UserController {
     public Response<?> register(@RequestBody RegisterDto registerDto) {
         return new Response<>("true", "가입 성공", userService.register(registerDto));
     }
-
 
 
     // 모든 사람이 접근 가능

@@ -31,6 +31,10 @@ public class Letter {
     @Column(nullable = false)
     private boolean deletedByReceiver;
 
+     // 12간지를 나타내는 필드 추가
+    @Column(nullable = false)
+    private String zodiacSing;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
