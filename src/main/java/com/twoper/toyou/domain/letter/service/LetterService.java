@@ -33,8 +33,8 @@ public class LetterService {
     }
 
     @Transactional
-    public void selectRecipient(String senderName, Long receiverId) {
-        User sender = userRepository.findByName(senderName);
+    public void selectRecipient(String username, Long receiverId) {
+        User sender = userRepository.findByUsername(username);
 
         if (sender == null) {
             throw new IllegalArgumentException("보낸 사람을 찾을 수 없습니다.");

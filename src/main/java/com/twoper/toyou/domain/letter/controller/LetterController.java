@@ -37,7 +37,7 @@ public class LetterController {
     @PostMapping("/select_human")
     public ResponseEntity<?> selectRecipient(@RequestBody RecipientSelectionDTO selectionDTO) {
         try {
-            letterService.selectRecipient(selectionDTO.getSenderName(), selectionDTO.getReceiverId());
+            letterService.selectRecipient(selectionDTO.getUsername(), selectionDTO.getReceiverId());
             return ResponseEntity.ok("받을 사람을 선택했습니다.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
