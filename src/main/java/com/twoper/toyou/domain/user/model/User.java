@@ -35,10 +35,12 @@ public class User {
 
     private String zodiacSign; // 수정: 12간지를 나타내는 필드 추가
 
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "receiver_id")
+    @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private User receiver; // 수정: 받을 사람 엔티티 추가
+    private User receiver;
+
     public List<String> getRoleList() {
         if (this.roles.length() > 0) {
             return Arrays.asList(this.roles.split(","));

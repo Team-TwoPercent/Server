@@ -20,4 +20,9 @@ public enum ZodiacSigne {
     PIG("Pig");
 
     private final String animal;
+
+
+    public String getAnimal() {
+        return this.animal;
+    }
 }
