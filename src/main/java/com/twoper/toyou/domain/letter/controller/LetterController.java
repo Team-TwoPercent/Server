@@ -25,23 +25,14 @@ public class LetterController {
 
     @PostMapping("/select_12")
     public ResponseEntity<?> selectZodiacSign(@RequestBody ZodiacSignSelectionDTO selectionDTO) {
-        try {
-            ZodiacSigne zodiacSigne = ZodiacSigne.valueOf(selectionDTO.getZodiacSign().toUpperCase());
-            letterService.selectZodiacSign(selectionDTO.getUsername(), zodiacSigne);
+            letterService.selectZodiacSign(selectionDTO.getUsername(), selectionDTO.getZodiacSign());
             return ResponseEntity.ok("12간지를 선택했습니다.");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
     }
 
     @PostMapping("/select_human")
     public ResponseEntity<?> selectRecipient(@RequestBody RecipientSelectionDTO selectionDTO) {
-        try {
             letterService.selectRecipient(selectionDTO.getSenderName(), selectionDTO.getReceiverId());
             return ResponseEntity.ok("받을 사람을 선택했습니다.");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
     }
 
 

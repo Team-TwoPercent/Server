@@ -1,4 +1,5 @@
 package com.twoper.toyou.domain.letter.model;
+import com.twoper.toyou.domain.letter.ZodiacSigne;
 import com.twoper.toyou.domain.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,7 +34,7 @@ public class Letter {
 
      // 12간지를 나타내는 필드 추가
     @Column(nullable = false)
-    private String zodiacSing;
+    private ZodiacSigne zodiacSing;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")
