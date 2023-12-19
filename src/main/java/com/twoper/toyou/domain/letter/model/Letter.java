@@ -1,4 +1,4 @@
-package com.example.twoper.Letter.model;
+package com.twoper.toyou.domain.letter.model;
 import com.twoper.toyou.domain.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;

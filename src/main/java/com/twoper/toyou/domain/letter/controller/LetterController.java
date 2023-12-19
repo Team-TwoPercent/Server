@@ -1,21 +1,16 @@
-package com.example.twoper.Letter.controller;
+package com.twoper.toyou.domain.letter.controller;
 
-import com.example.twoper.Letter.model.Letter;
-import com.example.twoper.Letter.model.dto.LetterDto;
-import com.example.twoper.Letter.model.dto.RecipientSelectionDTO;
-import com.example.twoper.Letter.model.dto.ZodiacSignSelectionDTO;
-import com.example.twoper.Letter.service.LetterService;
+import com.twoper.toyou.domain.letter.ZodiacSigne;
+import com.twoper.toyou.domain.letter.model.dto.LetterDto;
+import com.twoper.toyou.domain.letter.model.dto.RecipientSelectionDTO;
+import com.twoper.toyou.domain.letter.model.dto.ZodiacSignSelectionDTO;
+import com.twoper.toyou.domain.letter.service.LetterService;
 
 import com.twoper.toyou.domain.user.model.Response;
 import com.twoper.toyou.domain.user.model.User;
-import com.twoper.toyou.domain.user.repository.UserRepository;
 import com.twoper.toyou.global.jwt.auth.PrincipalDetails;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -27,12 +22,12 @@ import org.springframework.web.bind.annotation.*;
 public class LetterController {
 
   private final LetterService letterService;
-  private final UserRepository userRepository;
 
     @PostMapping("/select_12")
     public ResponseEntity<?> selectZodiacSign(@RequestBody ZodiacSignSelectionDTO selectionDTO) {
         try {
-            letterService.selectZodiacSign(selectionDTO.getUsername(), selectionDTO.getZodiacSign());
+            ZodiacSigne zodiacSigne = ZodiacSigne.valueOf(selectionDTO.getZodiacSign().toUpperCase());
+            letterService.selectZodiacSign(selectionDTO.getUsername(), zodiacSigne);
             return ResponseEntity.ok("12간지를 선택했습니다.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
