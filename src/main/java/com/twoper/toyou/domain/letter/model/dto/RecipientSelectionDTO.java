@@ -1,4 +1,4 @@
-package com.example.twoper.Letter.model.dto;
+package com.twoper.toyou.domain.letter.model.dto;
 
 import lombok.Data;
 

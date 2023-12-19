@@ -1,8 +1,9 @@
-package com.example.twoper.Letter.service;
+package com.twoper.toyou.domain.letter.service;
 
-import com.example.twoper.Letter.model.Letter;
-import com.example.twoper.Letter.model.dto.LetterDto;
-import com.example.twoper.Letter.repository.LetterRepository;
+import com.twoper.toyou.domain.letter.ZodiacSigne;
+import com.twoper.toyou.domain.letter.model.Letter;
+import com.twoper.toyou.domain.letter.model.dto.LetterDto;
+import com.twoper.toyou.domain.letter.repository.LetterRepository;
 import com.twoper.toyou.domain.user.model.User;
 import com.twoper.toyou.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,14 +21,14 @@ public class LetterService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void selectZodiacSign(String username, String zodiacSign) {
+    public void selectZodiacSign(String username, ZodiacSigne zodiacSign) {
         User user = userRepository.findByUsername(username);
 
         if (user == null) {
             throw new IllegalArgumentException("사용자를 찾을 수 없습니다.");
         }
 
-        user.setZodiacSign(zodiacSign);
+        user.setZodiacSign(zodiacSign.getAnimal());
         userRepository.save(user);
     }
 
@@ -47,7 +48,7 @@ public class LetterService {
     }
 
     @Transactional
-    public LetterDto write(LetterDto letterDto, String zodiacSign) {
+    public LetterDto write(LetterDto letterDto, ZodiacSigne zodiacSign) {
         User sender = userRepository.findByName(letterDto.getSenderName());
         User receiver = userRepository.findByName(letterDto.getReceiverName());
 
@@ -58,7 +59,7 @@ public class LetterService {
         Letter letter = new Letter();
         letter.setReceiver(receiver);
         letter.setSender(sender);
-        letter.setZodiacSing(zodiacSign);
+        letter.setZodiacSing(zodiacSign.getAnimal());
 
         letter.setTitle(letterDto.getTitle());
         letter.setContent(letterDto.getContent());

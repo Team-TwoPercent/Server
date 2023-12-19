@@ -1,4 +1,4 @@
-package com.example.twoper.health;
+package com.twoper.toyou.domain.health;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
