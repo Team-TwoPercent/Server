@@ -3,6 +3,7 @@ import antlr.NameSpace;
 import com.twoper.toyou.domain.letter.ZodiacSigne;
 import com.twoper.toyou.domain.user.model.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -15,8 +16,9 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity(name = "message")
 @Data
+@Builder
 public class Letter {
 
     @Id

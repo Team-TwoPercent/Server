@@ -7,12 +7,14 @@ import com.twoper.toyou.domain.letter.repository.LetterRepository;
 import com.twoper.toyou.domain.user.model.User;
 import com.twoper.toyou.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class LetterService {
@@ -48,27 +50,82 @@ public class LetterService {
     }
 
     @Transactional
-    public LetterDto write(LetterDto letterDto, ZodiacSigne zodiacSign) {
-        User sender = userRepository.findByUsername(letterDto.getUsername());
-        User receiver = userRepository.getById(letterDto.getId());
+    public LetterDto write(LetterDto letterDto, String zodiacSign) {
+        try {
+            User sender = userRepository.findByUsername(letterDto.getUsername());
+            User receiver = userRepository.getById(letterDto.getReceiverId());
 
-        if (sender == null || receiver == null) {
-            throw new IllegalArgumentException("보낸 사람 또는 받을 사람을 찾을 수 없습니다.");
+            if (sender == null || receiver == null) {
+                throw new IllegalArgumentException("보낸 사람 또는 받을 사람을 찾을 수 없습니다.");
+            }
+
+            // 문자열을 ZodiacSigne Enum 값으로 변환
+            ZodiacSigne zodiacSigne = ZodiacSigne.fromAnimal(zodiacSign);
+
+            Letter letter = new Letter();
+            letter.setReceiver(receiver);
+            letter.setSender(sender);
+            letter.setZodiacSing(zodiacSigne.getAnimal());
+
+            letter.setTitle(letterDto.getTitle());
+            letter.setContent(letterDto.getContent());
+            letter.setDeletedByReceiver(false);
+            letter.setDeletedBySender(false);
+
+            letterRepository.save(letter);
+
+            return LetterDto.toDto(letter);
+        } catch (Exception e) {
+            // 예외 발생 시 로그 출력
+            e.printStackTrace();
+            throw new RuntimeException("편지 작성 중 오류 발생: " + e.getMessage(), e);
         }
-
-        Letter letter = new Letter();
-        letter.setReceiver(receiver);
-        letter.setSender(sender);
-        letter.setZodiacSing(zodiacSign.getAnimal());
-
-        letter.setTitle(letterDto.getTitle());
-        letter.setContent(letterDto.getContent());
-        letter.setDeletedByReceiver(false);
-        letter.setDeletedBySender(false);
-        letterRepository.save(letter);
-
-        return LetterDto.toDto(letter);
     }
+
+
+
+//@Transactional
+//public LetterDto write(LetterDto letterDto, ZodiacSigne zodiacSign, Long receiverId) {
+//    try {
+//        User sender = userRepository.findByUsername(letterDto.getUsername());
+//        User receiver = userRepository.getById(letterDto.getReceiverId());
+//
+//        if (sender == null || receiver == null) {
+//            throw new IllegalArgumentException("보낸 사람 또는 받을 사람을 찾을 수 없습니다.");
+//        }
+//
+//        Letter letter =Letter.builder()
+//                .receiver(sender)
+//                .sender(sender)
+//                .zodiacSing(zodiacSign.getAnimal())
+//                .title(letterDto.getTitle())
+//                .content(letterDto.getContent())
+//                .deletedBySender(false)
+//                .deletedByReceiver(false)
+//                .build();
+//
+////        Letter letter = new Letter();
+////        letter.setReceiver(receiver);
+////        letter.setSender(sender);
+////        letter.setZodiacSing(zodiacSign.getAnimal());
+////
+////        letter.setTitle(letterDto.getTitle());
+////        letter.setContent(letterDto.getContent());
+////        letter.setDeletedByReceiver(false);
+////        letter.setDeletedBySender(false);
+//
+//        letterRepository.save(letter);
+//
+//        return LetterDto.toDto(letter);
+//    } catch (Exception e) {
+//        // 예외 발생 시 로그 출력
+//        log.error("편지 작성 중 오류 발생: {}", e.getMessage(), e);
+//        throw new RuntimeException("편지 작성 중 오류 발생");
+//    }
+//    }
+
+
+
 
     @Transactional(readOnly = true)
     public LetterDto findLetterById(int id) {
