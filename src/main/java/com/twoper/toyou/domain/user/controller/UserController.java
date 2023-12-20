@@ -37,7 +37,7 @@ public class  UserController {
 //    }
 
 
-    @GetMapping("/all")
+    @GetMapping("/users")
     public ResponseEntity<Response<List<User>>> findAll() {
         try {
             List<User> users = userService.findAll();

@@ -39,16 +39,15 @@ public class Letter {
     @Column(nullable = false)
     private String zodiacSing;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User sender;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receiver_id")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User receiver;
-
 
     public void deleteBySender() {
         this.deletedBySender = true;
