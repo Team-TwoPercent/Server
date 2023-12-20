@@ -50,7 +50,7 @@ public class LetterService {
     }
 
     @Transactional
-    public LetterDto write(LetterDto letterDto, String zodiacSign) {
+    public LetterDto write(LetterDto letterDto, ZodiacSigne zodiacSign) {
         try {
             User sender = userRepository.findByUsername(letterDto.getUsername());
             User receiver = userRepository.getById(letterDto.getReceiverId());
@@ -60,12 +60,14 @@ public class LetterService {
             }
 
             // 문자열을 ZodiacSigne Enum 값으로 변환
-            ZodiacSigne zodiacSigne = ZodiacSigne.fromAnimal(zodiacSign);
+
+            ZodiacSigne zodiacSigne = ZodiacSigne.fromAnimal(letterDto.getZodiacSign());
+
 
             Letter letter = new Letter();
             letter.setReceiver(receiver);
             letter.setSender(sender);
-            letter.setZodiacSing(zodiacSigne.getAnimal());
+            letter.setZodiacSing(zodiacSign.getAnimal());
 
             letter.setTitle(letterDto.getTitle());
             letter.setContent(letterDto.getContent());

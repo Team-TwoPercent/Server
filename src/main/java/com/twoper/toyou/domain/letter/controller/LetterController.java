@@ -114,7 +114,10 @@ public class LetterController {
 
             letterDto.setUsername(user.getUsername());
             // 사용자가 선택한 동물 사인을 전달
-            LetterDto savedLetter = letterService.write(letterDto, user.getZodiacSign());
+
+            ZodiacSigne zodiacSigne = ZodiacSigne.fromAnimal(letterDto.getZodiacSign());
+
+            LetterDto savedLetter = letterService.write(letterDto, zodiacSigne);
 
             return ResponseEntity.ok(savedLetter);
         } catch (IllegalArgumentException e) {
@@ -122,12 +125,14 @@ public class LetterController {
         }
     }
 
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
 

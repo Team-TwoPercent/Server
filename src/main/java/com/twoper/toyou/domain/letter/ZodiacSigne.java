@@ -33,6 +33,11 @@ ZodiacSigne(String animal) {
         return animal;
     }
 
+    public ZodiacSigne getZodiacSign() {
+        return this;
+    }
+
+
     // 문자열을 Enum 값으로 변환하는 메서드 추가
     public static ZodiacSigne fromAnimal(String animal) {
         for (ZodiacSigne zodiacSigne : values()) {

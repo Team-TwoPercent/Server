@@ -1,5 +1,6 @@
 package com.twoper.toyou.domain.letter.model.dto;
 
+import com.twoper.toyou.domain.letter.ZodiacSigne;
 import com.twoper.toyou.domain.letter.model.Letter;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -20,7 +21,7 @@ public class LetterDto {
     private String content;
     private String username;
     private int receiverId;
-
+    private String zodiacSign;
 
     public static LetterDto toDto (Letter letter){
         return new LetterDto(
@@ -28,8 +29,9 @@ public class LetterDto {
                 letter.getTitle(),
                 letter.getContent(),
                 letter.getSender().getUsername(),
-                letter.getReceiver().getId()
-        );
+                letter.getReceiver().getId(),
+                letter.getZodiacSing()
+                );
 
     }
     public String getUsername() {
