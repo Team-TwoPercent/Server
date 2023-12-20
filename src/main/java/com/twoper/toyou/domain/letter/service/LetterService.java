@@ -34,6 +34,8 @@ public class LetterService {
         userRepository.save(user);
     }
 
+
+
     @Transactional
     public void selectRecipient(String username, Long receiverId) {
         User sender = userRepository.findByUsername(username);

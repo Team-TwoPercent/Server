@@ -48,24 +48,6 @@ public class LetterController {
     }
 
 
-
-
-//    원래 코드
-//    @ApiOperation(value = "편지 보내기", notes = "편지 보내기")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @PostMapping("/write")
-//    public ResponseEntity<?> writeLetter(@RequestBody LetterDto letterDto, Authentication authentication) {
-//        try {
-//            User user = validateAndGetUser(authentication);
-//
-//            letterDto.setUsername(user.getUsername());
-//
-//            return ResponseEntity.ok("편지를 작성했습니다.");
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-//        }
-//    }
-
     private User validateAndGetUser(Authentication authentication) {
         if (authentication == null || authentication.getPrincipal() == null) {
             throw new IllegalArgumentException("인증되지 않은 사용자입니다.");
@@ -91,6 +73,29 @@ public class LetterController {
 
         List<LetterDto> receivedLetters = letterService.receivedLetter(user);
         return new Response<>("성공", "받은 편지를 불러왔습니다.", receivedLetters);
+    }
+
+    @GetMapping("/received/{id}")
+    public ResponseEntity<Response<LetterDto>> getReceivedLetterById(@PathVariable int id){
+        try{
+            LetterDto receivedLetter = letterService.findLetterById(id);
+            Response<LetterDto> response = new Response<>("성공", "편지를 불러왔습니다.", receivedLetter);
+            return ResponseEntity.ok(response);
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>("실패", e.getMessage(), null));
+        }
+    }
+
+
+    @GetMapping("/sent/{id}")
+    public ResponseEntity<Response<LetterDto>> getSentLetterById(@PathVariable int id) {
+        try {
+            LetterDto sentLetter = letterService.findLetterById(id);
+            Response<LetterDto> response = new Response<>("성공", "편지를 불러왔습니다.", sentLetter);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>("실패", e.getMessage(), null));
+        }
     }
 
 
