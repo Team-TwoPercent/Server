@@ -55,7 +55,7 @@ public class LetterController {
         try {
             User user = validateAndGetUser(authentication);
 
-            letterDto.setSenderName(user.getName());
+            letterDto.setUsername(user.getUsername());
 
             return ResponseEntity.ok("편지를 작성했습니다.");
         } catch (IllegalArgumentException e) {

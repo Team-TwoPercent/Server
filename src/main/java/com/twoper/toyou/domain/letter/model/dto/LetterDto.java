@@ -2,17 +2,24 @@ package com.twoper.toyou.domain.letter.model.dto;
 
 import com.twoper.toyou.domain.letter.model.Letter;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class LetterDto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String title;
     private String content;
-    private String senderName;
-    private String receiverName;
+    private String username;
+    private int receiverId;
 
 
     public static LetterDto toDto (Letter letter){
@@ -20,8 +27,12 @@ public class LetterDto {
                 letter.getId(),
                 letter.getTitle(),
                 letter.getContent(),
-                letter.getSender().getName(),
-                letter.getReceiver().getName()
+                letter.getSender().getUsername(),
+                letter.getReceiver().getId()
         );
+
+    }
+    public String getUsername() {
+        return this.username;
     }
 }

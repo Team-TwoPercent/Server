@@ -49,8 +49,8 @@ public class LetterService {
 
     @Transactional
     public LetterDto write(LetterDto letterDto, ZodiacSigne zodiacSign) {
-        User sender = userRepository.findByName(letterDto.getSenderName());
-        User receiver = userRepository.findByName(letterDto.getReceiverName());
+        User sender = userRepository.findByUsername(letterDto.getUsername());
+        User receiver = userRepository.getById(letterDto.getId());
 
         if (sender == null || receiver == null) {
             throw new IllegalArgumentException("보낸 사람 또는 받을 사람을 찾을 수 없습니다.");
