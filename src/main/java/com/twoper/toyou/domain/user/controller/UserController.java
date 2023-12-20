@@ -10,6 +10,7 @@ import com.twoper.toyou.domain.user.repository.UserRepository;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,11 +29,25 @@ public class  UserController {
 
 
 
-    @ApiOperation(value = "전체 회원 보기", notes = "전체 회원을 조회한다.")
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/users")
-    public Response<?> findAll() {
-        return new Response<>("true", "조회 성공", userService.findAll());
+//    @ApiOperation(value = "전체 회원 보기", notes = "전체 회원을 조회한다.")
+//    @ResponseStatus(HttpStatus.OK)
+//    @GetMapping("/users")
+//    public Response<?> findAll() {
+//        return new Response<>("true", "조회 성공", userService.findAll());
+//    }
+
+
+    @GetMapping("/all")
+    public ResponseEntity<Response<List<User>>> findAll() {
+        try {
+            List<User> users = userService.findAll();
+            Response<List<User>> response = new Response<>("true", "조회 성공", users);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            // 예외 처리 로직 추가
+            Response<List<User>> errorResponse = new Response<>("false", "조회 실패", null);
+            return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @ApiOperation(value="유저 찾기", notes = "개별 유저 조회")
