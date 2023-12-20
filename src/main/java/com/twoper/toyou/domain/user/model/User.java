@@ -36,6 +36,7 @@ public class User {
     private String zodiacSign; // 수정: 12간지를 나타내는 필드 추가
 
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
