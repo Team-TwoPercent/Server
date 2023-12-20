@@ -39,11 +39,15 @@
 
 package com.twoper.toyou.domain.user.Service;
 
+import com.twoper.toyou.domain.user.model.Response;
 import com.twoper.toyou.domain.user.model.User;
+import com.twoper.toyou.domain.user.model.dto.FindAllUserResponse;
 import com.twoper.toyou.domain.user.model.dto.RegisterDto;
 import com.twoper.toyou.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -66,8 +70,16 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public ResponseEntity<FindAllUserResponse> findAll() {
+        try {
+            List<User> users = userRepository.findAll();
+            return new ResponseEntity<>(
+                    new FindAllUserResponse("true", "조회 성공", users),
+                    HttpStatus.OK
+            );
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public User findUser(int id) {

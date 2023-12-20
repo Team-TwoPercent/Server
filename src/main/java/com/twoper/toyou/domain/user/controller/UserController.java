@@ -1,6 +1,7 @@
 package com.twoper.toyou.domain.user.controller;
 
 import com.twoper.toyou.domain.user.Service.UserService;
+import com.twoper.toyou.domain.user.model.dto.FindAllUserResponse;
 import com.twoper.toyou.global.jwt.auth.PrincipalDetails;
 import com.twoper.toyou.domain.user.model.Response;
 import com.twoper.toyou.domain.user.model.User;
@@ -38,16 +39,8 @@ public class  UserController {
 
 
     @GetMapping("/users")
-    public ResponseEntity<Response<List<User>>> findAll() {
-        try {
-            List<User> users = userService.findAll();
-            Response<List<User>> response = new Response<>("true", "조회 성공", users);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            // 예외 처리 로직 추가
-            Response<List<User>> errorResponse = new Response<>("false", "조회 실패", null);
-            return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<FindAllUserResponse> findAll() {
+        return userService.findAll();
     }
 
     @ApiOperation(value="유저 찾기", notes = "개별 유저 조회")
