@@ -1,4 +1,6 @@
 package com.twoper.toyou.domain.letter.controller;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twoper.toyou.domain.letter.ZodiacSigne;
 import com.twoper.toyou.domain.letter.model.dto.LetterDto;
 import com.twoper.toyou.domain.letter.model.dto.RecipientSelectionDTO;
@@ -130,32 +132,39 @@ public class LetterController {
 //    }
 //
 
-    @PostMapping("/write")
+    @PostMapping({"/write", "/write"})
     public ResponseEntity<?> writeLetter(@RequestBody LetterDto letterDto, Authentication authentication) {
         try {
-            // 사용자 정보 확인
             User user = validateAndGetUser(authentication);
-            letterDto.setUsername(user.getUsername());
 
+            letterDto.setUsername(user.getUsername());
             // 사용자가 선택한 동물 사인을 전달
             ZodiacSigne zodiacSigne = ZodiacSigne.fromAnimal(letterDto.getZodiacSign());
 
-            // 악성댓글 판별
+            // 악성코드 판별
             String aiResult = ContentCheckClient.checkContent(letterDto.getContent());
 
-            if ("0".equals(aiResult)) {
-                // 악성댓글이라면 에러 응답
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("악성 댓글 감지");
-            } else {
-                // 악성댓글이 아니라면 편지 저장
-                LetterDto savedLetter = letterService.write(letterDto, zodiacSigne);
-                return ResponseEntity.ok(savedLetter);
+            // FastAPI 서버에서의 응답을 JSON 파싱
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode resultNode = objectMapper.readTree(aiResult);
+
+            // 악성코드 판별 결과에 따라 처리
+            if (resultNode != null && resultNode.has("result")) {
+                int resultCode = resultNode.get("result").asInt();
+
+                if (resultCode == 0) {
+                    // 악성코드가 감지된 경우 처리
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("악성코드가 감지되었습니다.");
+                }
             }
-        } catch (IllegalArgumentException e) {
-            // 예외 발생 시 에러 응답
+
+            // 정상적인 경우 편지 작성 로직 수행
+            LetterDto savedLetter = letterService.write(letterDto, zodiacSigne);
+
+            return ResponseEntity.ok(savedLetter);
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-
     }
 
 
