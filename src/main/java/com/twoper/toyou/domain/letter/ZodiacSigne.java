@@ -1,6 +1,4 @@
 package com.twoper.toyou.domain.letter;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
@@ -21,10 +19,6 @@ public enum ZodiacSigne {
 
     private final String animal;
 
-
-//    public String getAnimal() {
-//        return this.animal;
-//    }
 ZodiacSigne(String animal) {
     this.animal = animal;
 }

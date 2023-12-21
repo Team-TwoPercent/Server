@@ -1,11 +1,10 @@
 package com.twoper.toyou.domain.letter.controller;
-
 import com.twoper.toyou.domain.letter.ZodiacSigne;
 import com.twoper.toyou.domain.letter.model.dto.LetterDto;
 import com.twoper.toyou.domain.letter.model.dto.RecipientSelectionDTO;
 import com.twoper.toyou.domain.letter.model.dto.ZodiacSignSelectionDTO;
 import com.twoper.toyou.domain.letter.service.LetterService;
-
+import com.twoper.toyou.domain.letter.service.ContentCheckClient;
 import com.twoper.toyou.domain.user.model.Response;
 import com.twoper.toyou.domain.user.model.User;
 import com.twoper.toyou.global.jwt.auth.PrincipalDetails;
@@ -76,12 +75,12 @@ public class LetterController {
     }
 
     @GetMapping("/received/{id}")
-    public ResponseEntity<Response<LetterDto>> getReceivedLetterById(@PathVariable int id){
-        try{
+    public ResponseEntity<Response<LetterDto>> getReceivedLetterById(@PathVariable int id) {
+        try {
             LetterDto receivedLetter = letterService.findLetterById(id);
             Response<LetterDto> response = new Response<>("성공", "편지를 불러왔습니다.", receivedLetter);
             return ResponseEntity.ok(response);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response<>("실패", e.getMessage(), null));
         }
     }
@@ -102,36 +101,65 @@ public class LetterController {
     @ApiOperation(value = "보낸 편지함 읽기", notes = "보낸편지함 확인")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/sent")
-    public Response<?> getSentLetter(Authentication authentication){
+    public Response<?> getSentLetter(Authentication authentication) {
         // 임의로 유저 정보를 넣었지만, JWT 도입하고 현재 로그인 된 유저의 정보를 넘겨줘야함
 
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         User user = principalDetails.getUser();
 
-        return new Response<>("성공", "보낸 쪽지를 불러왔습니다.",letterService.sentLetter(user));
+        return new Response<>("성공", "보낸 쪽지를 불러왔습니다.", letterService.sentLetter(user));
     }
-    @ApiOperation(value = "편지 보내기", notes = "편지 보내기")
-    @ResponseStatus(HttpStatus.CREATED)
+//    @ApiOperation(value = "편지 보내기", notes = "편지 보내기")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @PostMapping("/write")
+//    public ResponseEntity<?> writeLetter(@RequestBody LetterDto letterDto, Authentication authentication) {
+//        try {
+//            User user = validateAndGetUser(authentication);
+//
+//            letterDto.setUsername(user.getUsername());
+//            // 사용자가 선택한 동물 사인을 전달
+//
+//            ZodiacSigne zodiacSigne = ZodiacSigne.fromAnimal(letterDto.getZodiacSign());
+//
+//            LetterDto savedLetter = letterService.write(letterDto, zodiacSigne);
+//
+//            return ResponseEntity.ok(savedLetter);
+//        } catch (IllegalArgumentException e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+//        }
+//    }
+//
+
     @PostMapping("/write")
     public ResponseEntity<?> writeLetter(@RequestBody LetterDto letterDto, Authentication authentication) {
         try {
+            // 사용자 정보 확인
             User user = validateAndGetUser(authentication);
-
             letterDto.setUsername(user.getUsername());
-            // 사용자가 선택한 동물 사인을 전달
 
+            // 사용자가 선택한 동물 사인을 전달
             ZodiacSigne zodiacSigne = ZodiacSigne.fromAnimal(letterDto.getZodiacSign());
 
-            LetterDto savedLetter = letterService.write(letterDto, zodiacSigne);
+            // 악성댓글 판별
+            String aiResult = ContentCheckClient.checkContent(letterDto.getContent());
 
-            return ResponseEntity.ok(savedLetter);
+            if ("0".equals(aiResult)) {
+                // 악성댓글이라면 에러 응답
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("악성 댓글 감지");
+            } else {
+                // 악성댓글이 아니라면 편지 저장
+                LetterDto savedLetter = letterService.write(letterDto, zodiacSigne);
+                return ResponseEntity.ok(savedLetter);
+            }
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            // 예외 발생 시 에러 응답
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+
     }
 
-}
 
+}
 
 
 

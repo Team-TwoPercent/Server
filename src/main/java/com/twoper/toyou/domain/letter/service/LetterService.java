@@ -22,6 +22,7 @@ public class LetterService {
     private final LetterRepository letterRepository;
     private final UserRepository userRepository;
 
+
     @Transactional
     public void selectZodiacSign(String username, ZodiacSigne zodiacSign) {
         User user = userRepository.findByUsername(username);
@@ -121,4 +122,5 @@ public class LetterService {
         }
         return letterDtos;
     }
+
 }
