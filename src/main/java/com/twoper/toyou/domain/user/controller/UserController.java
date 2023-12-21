@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -27,16 +26,6 @@ public class  UserController {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-
-
-//    @ApiOperation(value = "전체 회원 보기", notes = "전체 회원을 조회한다.")
-//    @ResponseStatus(HttpStatus.OK)
-//    @GetMapping("/users")
-//    public Response<?> findAll() {
-//        return new Response<>("true", "조회 성공", userService.findAll());
-//    }
-
 
     @GetMapping("/users")
     public ResponseEntity<FindAllUserResponse> findAll() {
@@ -66,26 +55,5 @@ public class  UserController {
 
     // Tip : JWT를 사용하면 UserDetailsService를 호출하지 않기 때문에 @AuthenticationPrincipal 사용 불가능.
     // 왜냐하면 @AuthenticationPrincipal은 UserDetailsService에서 리턴될 때 만들어지기 때문이다.
-
-    // 유저 혹은 매니저 혹은 어드민이 접근 가능
-    @GetMapping("/user")
-    public String user(Authentication authentication) {
-        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-
-        return "<h1>" + principal.getUser().getUsername() + "</h1>";
-    }
-
-    // 매니저 혹은 어드민이 접근 가능
-    @GetMapping("/manager")
-    public String reports() {
-        return "<h1>reports</h1>";
-    }
-
-    // 어드민이 접근 가능
-    @GetMapping("/admin")
-    public List<User> users(){
-        return userRepository.findAll();
-    }
-
 
 }

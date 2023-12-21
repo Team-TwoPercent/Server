@@ -1,6 +1,4 @@
 package com.twoper.toyou.domain.letter.model;
-import antlr.NameSpace;
-import com.twoper.toyou.domain.letter.ZodiacSigne;
 import com.twoper.toyou.domain.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @AllArgsConstructor
@@ -51,17 +46,6 @@ public class Letter {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User receiver;
 
-    public void deleteBySender() {
-        this.deletedBySender = true;
-    }
-
-    public void deleteByReceiver() {
-        this.deletedByReceiver = true;
-    }
-
-    public boolean isDeleted() {
-        return isDeletedBySender() && isDeletedByReceiver();
-    }
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;

@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LetterController {
 
-  private final LetterService letterService;
+    private final LetterService letterService;
 
 
     @PostMapping("/select_12")
@@ -131,7 +131,6 @@ public class LetterController {
     }
 
 }
-
 
 
 

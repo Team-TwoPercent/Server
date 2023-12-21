@@ -88,49 +88,6 @@ public class LetterService {
 
 
 
-//@Transactional
-//public LetterDto write(LetterDto letterDto, ZodiacSigne zodiacSign, Long receiverId) {
-//    try {
-//        User sender = userRepository.findByUsername(letterDto.getUsername());
-//        User receiver = userRepository.getById(letterDto.getReceiverId());
-//
-//        if (sender == null || receiver == null) {
-//            throw new IllegalArgumentException("보낸 사람 또는 받을 사람을 찾을 수 없습니다.");
-//        }
-//
-//        Letter letter =Letter.builder()
-//                .receiver(sender)
-//                .sender(sender)
-//                .zodiacSing(zodiacSign.getAnimal())
-//                .title(letterDto.getTitle())
-//                .content(letterDto.getContent())
-//                .deletedBySender(false)
-//                .deletedByReceiver(false)
-//                .build();
-//
-////        Letter letter = new Letter();
-////        letter.setReceiver(receiver);
-////        letter.setSender(sender);
-////        letter.setZodiacSing(zodiacSign.getAnimal());
-////
-////        letter.setTitle(letterDto.getTitle());
-////        letter.setContent(letterDto.getContent());
-////        letter.setDeletedByReceiver(false);
-////        letter.setDeletedBySender(false);
-//
-//        letterRepository.save(letter);
-//
-//        return LetterDto.toDto(letter);
-//    } catch (Exception e) {
-//        // 예외 발생 시 로그 출력
-//        log.error("편지 작성 중 오류 발생: {}", e.getMessage(), e);
-//        throw new RuntimeException("편지 작성 중 오류 발생");
-//    }
-//    }
-
-
-
-
     @Transactional(readOnly = true)
     public LetterDto findLetterById(int id) {
         Letter letter = letterRepository.findById(id)
