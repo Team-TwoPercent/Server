@@ -5,7 +5,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class ContentCheckClient {
 
-    public static final String FASTAPI_SERVER_URL = "http://18.167.51.58:8000/letter/write";
+    public static final String FASTAPI_SERVER_URL = "http://15.165.110.46:8000/docs/letter/write";
 
     public static String checkContent(String content) {
         HttpHeaders headers = new HttpHeaders();
