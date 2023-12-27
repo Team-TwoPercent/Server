@@ -132,7 +132,7 @@ public class LetterController {
 //    }
 //
 
-    @PostMapping({"/write", "/write"})
+    @PostMapping( "/write")
     public ResponseEntity<?> writeLetter(@RequestBody LetterDto letterDto, Authentication authentication) {
         try {
             User user = validateAndGetUser(authentication);
