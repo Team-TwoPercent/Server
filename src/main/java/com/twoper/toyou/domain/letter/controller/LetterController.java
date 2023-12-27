@@ -111,26 +111,6 @@ public class LetterController {
 
         return new Response<>("성공", "보낸 쪽지를 불러왔습니다.", letterService.sentLetter(user));
     }
-//    @ApiOperation(value = "편지 보내기", notes = "편지 보내기")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @PostMapping("/write")
-//    public ResponseEntity<?> writeLetter(@RequestBody LetterDto letterDto, Authentication authentication) {
-//        try {
-//            User user = validateAndGetUser(authentication);
-//
-//            letterDto.setUsername(user.getUsername());
-//            // 사용자가 선택한 동물 사인을 전달
-//
-//            ZodiacSigne zodiacSigne = ZodiacSigne.fromAnimal(letterDto.getZodiacSign());
-//
-//            LetterDto savedLetter = letterService.write(letterDto, zodiacSigne);
-//
-//            return ResponseEntity.ok(savedLetter);
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-//        }
-//    }
-//
 
     @PostMapping( "/write")
     public ResponseEntity<?> writeLetter(@RequestBody LetterDto letterDto, Authentication authentication) {
